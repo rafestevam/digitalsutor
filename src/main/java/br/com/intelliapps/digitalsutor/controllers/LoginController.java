@@ -12,4 +12,9 @@ public class LoginController {
 		return "login";
 	}
 	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String acessa() {
+		return "dashboard";
+	}
+	
 }

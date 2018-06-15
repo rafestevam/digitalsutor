@@ -18,7 +18,6 @@ public class UsuarioValidation implements Validator{
 		ValidationUtils.rejectIfEmpty(errors, "email", "field.error.empty", new String[] {"E-mail"});
 		ValidationUtils.rejectIfEmpty(errors, "password", "field.error.empty", new String[] {"Senha"});
 		ValidationUtils.rejectIfEmpty(errors, "confPass", "field.error.empty", new String[] {"Senha"});
-		//ValidationUtils.rejectIfEmpty(errors, "accept", "field.error.noaccept");
 		
 		Usuario usuario = (Usuario) target;
 		if(!usuario.getPassword().equals(usuario.getConfPass())) {

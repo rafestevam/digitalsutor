@@ -1,13 +1,25 @@
 package br.com.intelliapps.digitalsutor.models;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
-public class Usuario {
+public class Usuario implements UserDetails {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String username;
@@ -32,6 +44,9 @@ public class Usuario {
 	private String confPass;
 	
 	private Boolean accept;
+	
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private List<Role> roles = new ArrayList<Role>();
 
 	public String getUsername() {
 		return username;
@@ -74,6 +89,32 @@ public class Usuario {
 	}
 	public void setAccept(Boolean accept) {
 		this.accept = accept;
+	}
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return this.roles;
+	}
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	public List<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 	
 	
