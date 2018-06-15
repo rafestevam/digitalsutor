@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Digital Sutor : Cadastrar novo usuário</title>
@@ -9,40 +9,51 @@
 </head>
 <body class="align-items-center">
 	<div class="container">
+
 		<div class="card w-50 form-register">
-			<h5 class="card-header">
-				Registrar novo usuário
-			</h5>
+			<h5 class="card-header">Registrar novo usuário</h5>
 			<div class="card-body">
-				<form>
+				<form action="#" th:action="@{/novousuario}" th:object="${usuario}" method="post">
 					<div class="form-group">
 						<label for="username">Login</label> <input type="text"
-							class="form-control" id="username">
+							class="form-control" id="username" th:field="*{username}" th:errorclass="is-invalid">
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" ></div>
 					</div>
 					<div class="form-group">
 						<label for="nome">Primeiro Nome</label> <input type="text"
-							class="form-control" id="nome">
+							class="form-control" id="nome" th:field="*{nome}" th:errorclass="is-invalid">
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" ></div>
 					</div>
 					<div class="form-group">
 						<label for="ultimonome">Último Nome</label> <input type="text"
-							class="form-control" id="ultimonome">
+							class="form-control" id="ultimonome" th:field="*{ultimonome}">
 					</div>
 					<div class="form-group">
 						<label for="email">E-mail</label> <input type="email"
-							class="form-control" id="email">
+							class="form-control" id="email" th:field="*{email}" th:errorclass="is-invalid">
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" ></div>
 					</div>
 					<div class="form-group">
 						<label for="password">Senha</label> <input type="password"
-							class="form-control" id="password">
+							class="form-control" id="password" th:field="*{password}" th:errorclass="is-invalid">
+						<small id="passHelp" class="form-text text-muted">
+							A senha deve conter entre 6-10 caracteres, conter letras e números e não conter espaços, caracteres especiais ou emojis.
+						</small>
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></div>
 					</div>
 					<div class="form-group">
-						<label for="confpassword">Confirmar Senha</label> <input
-							type="password" class="form-control" id="confpassword">
+						<label for="confPass">Confirmar Senha</label> <input
+							type="password" class="form-control" id="confPass" th:field="*{confPass}" th:errorclass="is-invalid">
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('confPass')}" th:errors="*{confPass}"></div>
+					</div>
+					<div class="form-group form-check">
+						<input type="checkbox" class="form-check-input" id="accept" value="" th:field="*{accept}" th:errorclass="is-invalid"> 
+						<label class="form-check-label" for="accept">Eu li e aceito os <a href="#">Termos e condições de uso</a></label>
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('accept')}" th:errors="*{accept}"></div>
 					</div>
 					<div class="form-group">
-						<input type="checkbox" value="accept"> Eu li e aceito os <a href="#">Termos e condições de uso</a>
+						<input type="submit" class="btn btn-primary" value="Registrar">
 					</div>
-					<button type="button" class="btn btn-primary">Registrar</button>
 				</form>
 			</div>
 		</div>
