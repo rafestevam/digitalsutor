@@ -15,6 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName("login");
 		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+//		registry.addViewController("/dashboard").setViewName("dashboard");
 	}
 	
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -28,6 +29,6 @@ public class WebConfig implements WebMvcConfigurer {
 		messageSource.setDefaultEncoding("UTF-8");
 		messageSource.setCacheSeconds(1);
 		return messageSource;
-	}	
+	}
 	
 }

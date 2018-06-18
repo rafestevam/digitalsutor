@@ -19,7 +19,10 @@ public class UsuarioValidation implements Validator{
 		ValidationUtils.rejectIfEmpty(errors, "password", "field.error.empty", new String[] {"Senha"});
 		ValidationUtils.rejectIfEmpty(errors, "confPass", "field.error.empty", new String[] {"Senha"});
 		
+		
 		Usuario usuario = (Usuario) target;
+		System.out.println(usuario.getPassword());
+		System.out.println(usuario.getConfPass());
 		if(!usuario.getPassword().equals(usuario.getConfPass())) {
 			errors.rejectValue("password", "field.error.passwordconflict");
 			errors.rejectValue("confPass", "field.error.passwordconflict");

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Digital Sutor : Inicio</title>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
 
 	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="#">Digital Sutor - Administração</a>
+		<a class="navbar-brand" href="#">Digital Sutor - AdministraÃ§Ã£o</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNav" aria-controls="navbarNav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -21,13 +22,13 @@
 				<li class="nav-item"><a class="nav-link disabled"
 					href="#">Cadastro de Produtos</a></li>
 			</ul>
-			<span class="navbar-text" th:inline="text"> [[${#httpServletRequest.remoteUser}]] 
+			<span class="navbar-text" th:inline="text" th:text="${#httpServletRequest.remoteUser}">
 			</span>
 		</div>
 	</nav>
 
 	<div class="container">
-	
+		
 	</div>
 
 </body>

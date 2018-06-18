@@ -5,9 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.intelliapps.digitalsutor.conf.SecurityConfiguration;
 import br.com.intelliapps.digitalsutor.controllers.HomeController;
-import br.com.intelliapps.digitalsutor.daos.UsuarioDAO;
+import br.com.intelliapps.digitalsutor.repositories.UsuarioRepository;
+import br.com.intelliapps.digitalsutor.services.UsuarioService;
 
-@SpringBootApplication(scanBasePackageClasses= {HomeController.class, SecurityConfiguration.class, UsuarioDAO.class})
+@SpringBootApplication(scanBasePackageClasses= {HomeController.class, SecurityConfiguration.class, UsuarioRepository.class, UsuarioService.class})
 public class BasicConfiguration {
 
 	public static void main(String[] args) {

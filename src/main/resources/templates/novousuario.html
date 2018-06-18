@@ -13,7 +13,7 @@
 		<div class="card w-50 form-register">
 			<h5 class="card-header">Registrar novo usuário</h5>
 			<div class="card-body">
-				<form action="#" th:action="@{/novousuario}" th:object="${usuario}" method="post">
+				<form action="#" th:action="@{/novousuario}" th:object="${usuario}" method="POST">
 					<div class="form-group">
 						<label for="username">Login</label> <input type="text"
 							class="form-control" id="username" th:field="*{username}" th:errorclass="is-invalid">

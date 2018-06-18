@@ -1,7 +1,5 @@
 package br.com.intelliapps.digitalsutor.controllers;
 
-import java.util.Arrays;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +11,25 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.intelliapps.digitalsutor.daos.UsuarioDAO;
-import br.com.intelliapps.digitalsutor.models.Role;
 import br.com.intelliapps.digitalsutor.models.Usuario;
+import br.com.intelliapps.digitalsutor.services.SecurityService;
+import br.com.intelliapps.digitalsutor.services.UsuarioService;
 import br.com.intelliapps.digitalsutor.validation.UsuarioValidation;
 
 @Controller
 public class UsuarioController {
 	
 	@Autowired
-	private UsuarioDAO usuarioDAO;
+	private UsuarioService usuarioService;
+	
+	@Autowired
+	private SecurityService securityService;
+	
+//	@Autowired
+//	private PasswordEncoder passEncoder;
+	
+//	@Autowired
+//	private JdbcUserDetailsManager userDetailsManager;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -41,11 +48,22 @@ public class UsuarioController {
 		if(binding.hasErrors())
 			return formUsuario(usuario);
 		
-		usuario.setRoles(Arrays.asList(new Role("ROLE_ADMIN")));
+//		usuario.setRoles(Arrays.asList(new Role("ROLE_ADMIN")));
 		
-		usuarioDAO.gravarUsuario(usuario);
+//		String encodedPass = passEncoder.encode(usuario.getPassword());
+//		usuario.setPassword(encodedPass);
+//		usuario.setConfPass(encodedPass);
+//		
+//		User user = new User(usuario.getUsername(), encodedPass, usuario.getRoles());
+//		userDetailsManager.createUser(usuario);
 		
-		return "redirect:login";
+//		usuarioDAO.gravarUsuario(usuario);
+		
+		usuarioService.save(usuario);
+		
+		securityService.autologin(usuario.getUsername(), usuario.getPassword());
+		
+		return "redirect:dashboard";
 	}
 	
 }
