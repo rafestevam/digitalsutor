@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Digital Sutor : Cadastrar novo usuário</title>
-<th:block th:include="fragments/basiclayout.html :: headerfiles"></th:block>
+<meta charset="UTF-8">
+<title>Digital Sutor : Cadastrar novo usuÃ¡rio</title>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="custom/css/novousuario.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body class="align-items-center">
 	<div class="container">
 
 		<div class="card w-50 form-register">
-			<h5 class="card-header">Registrar novo usuário</h5>
+			<h5 class="card-header">Registrar novo usuÃ¡rio</h5>
 			<div class="card-body">
 				<form action="#" th:action="@{/novousuario}" th:object="${usuario}" method="POST">
 					<div class="form-group">
@@ -22,7 +25,7 @@
 						<div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" ></div>
 					</div>
 					<div class="form-group">
-						<label for="ultimonome">Último Nome</label> <input type="text"
+						<label for="ultimonome">Ãšltimo Nome</label> <input type="text"
 							class="form-control" id="ultimonome" th:field="*{ultimonome}">
 					</div>
 					<div class="form-group">
@@ -34,7 +37,7 @@
 						<label for="password">Senha</label> <input type="password"
 							class="form-control" id="password" th:field="*{password}" th:errorclass="is-invalid">
 						<small id="passHelp" class="form-text text-muted">
-							A senha deve conter entre 6-10 caracteres, conter letras e números e não conter espaços, caracteres especiais ou emojis.
+							A senha deve conter entre 6-10 caracteres, conter letras e nÃºmeros e nÃ£o conter espaÃ§os, caracteres especiais ou emojis.
 						</small>
 						<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></div>
 					</div>
@@ -45,7 +48,7 @@
 					</div>
 					<div class="form-group form-check">
 						<input type="checkbox" class="form-check-input" id="accept" value="" th:field="*{accept}" th:errorclass="is-invalid"> 
-						<label class="form-check-label" for="accept">Eu li e aceito os <a href="#">Termos e condições de uso</a></label>
+						<label class="form-check-label" for="accept">Eu li e aceito os <a href="#">Termos e condiÃ§Ãµes de uso</a></label>
 						<div class="invalid-feedback" th:if="${#fields.hasErrors('accept')}" th:errors="*{accept}"></div>
 					</div>
 					<div class="form-group">

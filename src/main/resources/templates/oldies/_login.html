@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Digital Sutor : Login</title>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="custom/css/signin.css" rel="stylesheet" />
+</head>
+<body class="text-center">
+
+	<div class="alert alert-dismissable alert-danger bad-login"
+		th:if="${param.error != null}">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<!-- The real error is included as a tooltip, i.e. the title attribute. -->
+		<p th:title="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">Invalid
+			username or password.</p>
+	</div>
+
+	<form class="form-signin" th:action="@{/login}" method="POST" th:prependId="false">
+		<img class="profile-img-card"
+			src="//ssl.gstatic.com/accounts/ui/avatar_2x.png">
+		<h1 class="h3 mb-3 font-weight-normal">Digital Sutor</h1>
+		<label for="username" class="sr-only">Email address</label> <input
+			type="text" id="username" name="username" class="form-control" placeholder="Login"
+			required autofocus> <label for="password"
+			class="sr-only">Password</label> <input type="password"
+			id="password" name="password" class="form-control" placeholder="Senha" required>
+		<div class="checkbox mb-3">
+			<label> <input type="checkbox" value="rememberme">
+				Lembrar-me
+			</label>
+		</div>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Acessar</button>
+		<p class="mt-5 mb-3 text-muted">&copy; 2018</p>
+		<div class="container">
+			<div class="row justify-content-md-center">
+				<div class="col-md-auto">
+					<a href="#">Esqueci minha senha</a>
+				</div>
+				<div class="col-md-auto">
+					<a href="/novousuario">Registrar</a>
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+</html>
