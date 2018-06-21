@@ -30,10 +30,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 		//String userID = UUID.randomUUID().toString();
 		
 		//usuario.setId(userID);
-		usuario.setPassword(passEncoder.encode(usuario.getPassword()));
-		usuario.setConfPass(passEncoder.encode(usuario.getConfPass()));
+		if(usuario.getPassword().length() < 11) {
+			usuario.setPassword(passEncoder.encode(usuario.getPassword()));
+			usuario.setConfPass(passEncoder.encode(usuario.getConfPass()));
+			usuario.setRoles(roles);
+		}
 //		usuario.setRoles(new HashSet<Role>((Collection<? extends Role>) roleRepository.findAll()));
-		usuario.setRoles(roles);
 		
 		usuarioRepository.save(usuario);
 	}
