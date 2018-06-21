@@ -27,6 +27,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Set<Role> roles = new HashSet<Role>();
 		roles.add(new Role("ROLE_ADMIN"));
 		
+		//String userID = UUID.randomUUID().toString();
+		
+		//usuario.setId(userID);
 		usuario.setPassword(passEncoder.encode(usuario.getPassword()));
 		usuario.setConfPass(passEncoder.encode(usuario.getConfPass()));
 //		usuario.setRoles(new HashSet<Role>((Collection<? extends Role>) roleRepository.findAll()));
@@ -35,8 +38,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuarioRepository.save(usuario);
 	}
 
-	public Usuario findeByUsername(String username) {
+	public Usuario findByUsername(String username) {
 		return usuarioRepository.findByUsername(username);
+	}
+
+	public boolean existsByUsername(String username) {
+		return usuarioRepository.existsByUsername(username);
+	}
+
+	public Usuario findByToken(String token) {
+		return usuarioRepository.findByToken(token);
 	}
 
 }

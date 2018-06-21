@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Digital Sutor : Cadastrar novo usuário</title>
+<th:block th:include="fragments/basiclayout.html :: headerfiles"></th:block>
+</head>
+<body class="bg-dark">
+	<div class="container">
+
+		<div class="card card-register mx-auto mt-5">
+			<div class="card-header">Digital Sutor :: Confirmação de novo usuário</div>
+			<div class="card-body">
+				<div class="text-center mt-4 mb-5">
+					<h4>Erro! Usuário inválido</h4>
+					<p>O token utilizado para validação de usuário é inválido</p>
+				</div>
+				<div class="form-group">
+					<a class="btn btn-primary btn-block" th:href="@{/login}">Retornar à Pagina Principal</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Bootstrap core JavaScript-->
+	<script src="jquery/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Core plugin JavaScript-->
+	<script src="jquery-easing/jquery.easing.min.js"></script>
+	
+</body>
+</html>

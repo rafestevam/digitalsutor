@@ -20,6 +20,8 @@ public class Usuario {// implements UserDetails {
 	//private static final long serialVersionUID = 1L;
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+//	@GeneratedValue(generator="uuid")
+//	@GenericGenerator(name="uuid", strategy="uuid")
 	private Long id;
 	
 	@NotNull
@@ -43,6 +45,14 @@ public class Usuario {// implements UserDetails {
 	private String confPass;
 	
 	private Boolean accept;
+	
+	private Boolean activated;
+	
+	private String token;
+	
+	public Usuario() {
+		this.setActivated(false);
+	}
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name="usuario_roles", joinColumns=@JoinColumn(name="usuario_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
@@ -121,6 +131,18 @@ public class Usuario {// implements UserDetails {
 	}
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+	public Boolean getActivated() {
+		return activated;
+	}
+	public void setActivated(Boolean activated) {
+		this.activated = activated;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 }

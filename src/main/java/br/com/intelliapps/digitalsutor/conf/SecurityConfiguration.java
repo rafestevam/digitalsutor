@@ -43,6 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 				.antMatchers(resourceFiles).permitAll()
 				.antMatchers("/novousuario").permitAll()
+				.antMatchers("/confirmar").permitAll()
 				.antMatchers("/").permitAll()
 				.antMatchers("/dashboard").hasRole("ADMIN")
 				.anyRequest().authenticated()
@@ -65,13 +66,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService)
 			.passwordEncoder(passwordEncoder());
-//		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder());
 	}
 	
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
-		// TODO Auto-generated method stub
 		return super.authenticationManagerBean();
 	}
 	

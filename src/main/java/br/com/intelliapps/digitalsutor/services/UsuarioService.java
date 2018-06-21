@@ -6,6 +6,10 @@ public interface UsuarioService {
 
 	public void save(Usuario usuario);
 	
-	public Usuario findeByUsername(String username);
+	public Usuario findByUsername(String username);
+	
+	public Usuario findByToken(String token);
+	
+	public boolean existsByUsername(String username);
 	
 }

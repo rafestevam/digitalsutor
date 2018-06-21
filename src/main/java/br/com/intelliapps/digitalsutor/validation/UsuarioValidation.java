@@ -21,6 +21,7 @@ public class UsuarioValidation implements Validator{
 		
 		
 		Usuario usuario = (Usuario) target;
+		System.out.println(usuario.getUsername());
 		System.out.println(usuario.getPassword());
 		System.out.println(usuario.getConfPass());
 		if(!usuario.getPassword().equals(usuario.getConfPass())) {

@@ -1,59 +1,81 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Digital Sutor : Cadastrar novo usuário</title>
+<title>Digital Sutor : Cadastrar novo usuÃ¡rio</title>
 <th:block th:include="fragments/basiclayout.html :: headerfiles"></th:block>
 </head>
-<body class="align-items-center">
+<body class="bg-dark">
 	<div class="container">
 
-		<div class="card w-50 form-register">
-			<h5 class="card-header">Registrar novo usuário</h5>
+		<div class="card card-register mx-auto mt-5">
+			<div class="card-header">Digital Sutor :: Registrar novo usuÃ¡rio</div>
 			<div class="card-body">
+				<div class="alert alert-success" th:if="${registrationMessage}" th:text="${registrationMessage}"></div>
 				<form action="#" th:action="@{/novousuario}" th:object="${usuario}" method="POST">
 					<div class="form-group">
-						<label for="username">Login</label> <input type="text"
-							class="form-control" id="username" th:field="*{username}" th:errorclass="is-invalid">
-						<div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" ></div>
+						<div class="form-row">
+							<div class="col-md-6">
+								<label for="nome">Primeiro Nome</label> 
+								<input type="text" class="form-control" id="nome" th:field="*{nome}" th:errorclass="is-invalid">
+								<div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" ></div>
+							</div>
+							<div class="col-md-6">
+								<label for="ultimonome">Ãšltimo Nome</label> 
+								<input type="text" class="form-control" id="ultimonome" th:field="*{ultimonome}">
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
-						<label for="nome">Primeiro Nome</label> <input type="text"
-							class="form-control" id="nome" th:field="*{nome}" th:errorclass="is-invalid">
-						<div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" ></div>
+						<div class="form-row">
+							<label for="email">E-mail</label> <input type="email"
+								class="form-control" id="email" th:field="*{email}" th:errorclass="is-invalid">
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" ></div>
+						</div>
 					</div>
 					<div class="form-group">
-						<label for="ultimonome">Último Nome</label> <input type="text"
-							class="form-control" id="ultimonome" th:field="*{ultimonome}">
+						<div class="form-row">
+							<label for="username">Login</label> <input type="text" class="form-control" id="username" name="username" th:field="*{username}" th:errorclass="is-invalid">
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" ></div>
+						</div>
 					</div>
 					<div class="form-group">
-						<label for="email">E-mail</label> <input type="email"
-							class="form-control" id="email" th:field="*{email}" th:errorclass="is-invalid">
-						<div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" ></div>
+						<div class="form-row">
+							<div class="col-md-6">
+								<label for="password">Senha</label> 
+								<input type="password" class="form-control" id="password" th:field="*{password}" th:errorclass="is-invalid">
+								<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></div>
+							</div>
+							<div class="col-md-6">
+								<label for="confPass">Confirmar Senha</label> 
+								<input type="password" class="form-control" id="confPass" th:field="*{confPass}" th:errorclass="is-invalid">
+								<div class="invalid-feedback" th:if="${#fields.hasErrors('confPass')}" th:errors="*{confPass}"></div>
+							</div>
+							<small id="passHelp" class="form-text text-muted">
+								A senha deve conter entre 6-10 caracteres, conter letras e nÃºmeros e nÃ£o conter espaÃ§os, caracteres especiais ou emojis.
+							</small>
+						</div>
 					</div>
 					<div class="form-group">
-						<label for="password">Senha</label> <input type="password"
-							class="form-control" id="password" th:field="*{password}" th:errorclass="is-invalid">
-						<small id="passHelp" class="form-text text-muted">
-							A senha deve conter entre 6-10 caracteres, conter letras e números e não conter espaços, caracteres especiais ou emojis.
-						</small>
-						<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></div>
+						<div class="form-row">
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" id="accept" value="" th:field="*{accept}" th:errorclass="is-invalid"> 
+								<label class="form-check-label" for="accept">Eu li e aceito os <a href="#">Termos e condiÃ§Ãµes de uso</a></label>
+								<div class="invalid-feedback" th:if="${#fields.hasErrors('accept')}" th:errors="*{accept}"></div>
+							</div>
+						</div>
 					</div>
-					<div class="form-group">
-						<label for="confPass">Confirmar Senha</label> <input
-							type="password" class="form-control" id="confPass" th:field="*{confPass}" th:errorclass="is-invalid">
-						<div class="invalid-feedback" th:if="${#fields.hasErrors('confPass')}" th:errors="*{confPass}"></div>
-					</div>
-					<div class="form-group form-check">
-						<input type="checkbox" class="form-check-input" id="accept" value="" th:field="*{accept}" th:errorclass="is-invalid"> 
-						<label class="form-check-label" for="accept">Eu li e aceito os <a href="#">Termos e condições de uso</a></label>
-						<div class="invalid-feedback" th:if="${#fields.hasErrors('accept')}" th:errors="*{accept}"></div>
-					</div>
-					<div class="form-group">
-						<input type="submit" class="btn btn-primary" value="Registrar">
-					</div>
+					<input type="submit" class="btn btn-primary btn-block" value="Registrar">
 				</form>
 			</div>
 		</div>
 	</div>
+	
+	<!-- Bootstrap core JavaScript-->
+	<script src="jquery/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Core plugin JavaScript-->
+	<script src="jquery-easing/jquery.easing.min.js"></script>
+	
 </body>
 </html>

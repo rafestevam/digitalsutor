@@ -1,4 +1,9 @@
 eclipse.preferences.version=1
+encoding//src/main/java/br/com/intelliapps/digitalsutor/controllers/LoginController.java=UTF-8
 encoding//src/main/resources/application.properties=UTF-8
 encoding//src/main/resources/messages.properties=UTF-8
 encoding//src/main/resources/messages_pt_BR.properties=UTF-8
+encoding//src/main/resources/templates/confirmar.html=UTF-8
+encoding//src/main/resources/templates/confirmarError.html=UTF-8
+encoding//src/main/resources/templates/login.html=UTF-8
+encoding//src/main/resources/templates/novousuario.html=UTF-8
