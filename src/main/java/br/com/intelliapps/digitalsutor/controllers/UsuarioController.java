@@ -124,4 +124,31 @@ public class UsuarioController {
 		
 	}
 	
+	@RequestMapping(value="/esquecisenha", method=RequestMethod.GET)
+	public String forgetPassword(Usuario usuario) {
+		return "esquecisenha";
+	}
+	
+	@RequestMapping(value="/forget", method=RequestMethod.POST)
+	public String sendForgetMail(Usuario usuario, Model model, HttpServletRequest req) {
+		
+		if(usuarioService.existsByEmail(usuario.getEmail())) {
+			
+			Usuario usuarioPers = usuarioService.findByEmail(usuario.getEmail());
+			String appUrl = req.getScheme() + "://" + req.getServerName();
+			
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setFrom("digitalsutor@gmail.com");
+			message.setTo(usuario.getEmail());
+			message.setSubject("Digital Sutor :: Recuperação de Senha");
+			message.setText("Para reiniciar sua senha, acesse o link abaixo: \n"
+					+ appUrl + "/renew?token=" + usuarioPers.getToken());
+			
+		}else {
+			model.addAttribute("errorForgetMessage", "Endereço de e-mail não cadastrado!");
+		}
+		
+		return "esquecisenha";
+	}
+	
 }

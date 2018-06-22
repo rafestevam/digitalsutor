@@ -10,6 +10,8 @@ public interface UsuarioService {
 	
 	public Usuario findByToken(String token);
 	
+	public Usuario findByEmail(String email);
+	
 	public boolean existsByUsername(String username);
 	
 	public boolean existsByEmail(String email);

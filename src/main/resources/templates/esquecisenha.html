@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Digital Sutor : Cadastrar novo usuário</title>
+<th:block th:include="fragments/basiclayout.html :: headerfiles"></th:block>
+</head>
+<body class="bg-dark">
+	<div class="container">
+
+		<div class="card card-register mx-auto mt-5">
+			<div class="card-header">Digital Sutor :: Esqueci minha senha</div>
+			<div class="card-body">
+				<div class="alert alert-success" th:if="${successForgetMessage}" th:text="${successForgetMessage}"></div>
+				<div class="alert alert-danger" th:if="${errorForgetMessage}" th:text="${errorForgetMessage}"></div>
+				<div class="text-center mt-4 mb-5">
+					<h4>Recuperação de senha</h4>
+					<p>Confirme seu endereço e-mail abaixo. Um e-mail com as instruções de recuperação de senha será enviado. </p>
+				</div>
+				<form th:action="@{/forget}" method="POST" th:object="${usuario}">
+					<div class="form-group">
+						<input type="email" class="form-control" id="email" th:field="*{email}">
+					</div>
+					<div class="form-group">
+						<input type="submit" class="btn btn-primary btn-block" value="Confirmar">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Bootstrap core JavaScript-->
+	<script src="jquery/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Core plugin JavaScript-->
+	<script src="jquery-easing/jquery.easing.min.js"></script>
+	
+</body>
+</html>

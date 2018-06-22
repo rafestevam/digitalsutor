@@ -13,7 +13,7 @@ public class LoginController {
 	public String login(@RequestParam(value="error", required=false) String error, Model model) {
 		
 		if(error != null) {
-			model.addAttribute("error", "Usuário ou senha inválidos");
+			model.addAttribute("error", "Usuï¿½rio ou senha invï¿½lidos");
 			return "login?error";
 		}
 		

@@ -7,7 +7,8 @@ import br.com.intelliapps.digitalsutor.models.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	Usuario findByUsername(String username);
-	Usuario findByToken(String token);	
+	Usuario findByToken(String token);
+	Usuario findByEmail(String email);
 	
 	@Query("select case when count(*) > 0 then 'true' else 'false' end from Usuario u where u.username = ?1")
 	boolean existsByUsername(String username);
