@@ -47,6 +47,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public boolean existsByUsername(String username) {
 		return usuarioRepository.existsByUsername(username);
 	}
+	
+	public boolean existsByEmail(String email) {
+		return usuarioRepository.existsByEmail(email);
+	}
 
 	public Usuario findByToken(String token) {
 		return usuarioRepository.findByToken(token);

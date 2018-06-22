@@ -12,4 +12,6 @@ public interface UsuarioService {
 	
 	public boolean existsByUsername(String username);
 	
+	public boolean existsByEmail(String email);
+	
 }

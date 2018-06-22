@@ -62,6 +62,11 @@ public class UsuarioController {
 			return formUsuario(usuario);
 		}
 		
+		if(usuarioService.existsByUsername(usuario.getEmail())) {
+			binding.rejectValue("email", "field.error.email.exists");
+			return formUsuario(usuario);
+		}
+		
 		usuario.setToken(UUID.randomUUID().toString());
 		
 		usuarioService.save(usuario);

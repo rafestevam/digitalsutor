@@ -1,5 +1,8 @@
 package br.com.intelliapps.digitalsutor.validation;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -30,6 +33,24 @@ public class UsuarioValidation implements Validator{
 		}
 		if(!usuario.getAccept())
 			errors.rejectValue("accept", "field.error.noaccept");
+		
+		if(usuario.getPassword().length() > 10) {
+			errors.rejectValue("password", "field.error.password.size");
+			errors.rejectValue("confPass", "field.error.password.size");
+		}
+		
+		Pattern patternSpace = Pattern.compile("[,\\s]");
+		Matcher matcherSpace = patternSpace.matcher(usuario.getUsername());
+		if(matcherSpace.find())
+			errors.rejectValue("username", "field.error.username.blanks");
+		
+		Pattern pattern = Pattern.compile("\\p{Alnum}+");
+		Matcher matcher = pattern.matcher(usuario.getPassword());
+		Matcher matcher2 = pattern.matcher(usuario.getConfPass());
+		if (!matcher.matches() && !matcher2.matches()) {
+			errors.rejectValue("password", "field.error.password.charInvalid");
+			errors.rejectValue("confPass", "field.error.password.charInvalid");
+		}
 		
 	}
 
