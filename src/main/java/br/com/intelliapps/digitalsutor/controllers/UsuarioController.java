@@ -75,15 +75,15 @@ public class UsuarioController {
 		
 		SimpleMailMessage registrationMessage = new SimpleMailMessage();
 		registrationMessage.setTo(usuario.getEmail());
-		registrationMessage.setSubject("Digital Sutor :: ConfirmaÁ„o de Registro");
-		registrationMessage.setText("Para confirmar seu endereÁo de e-mail, favor clicar no link abaixo:\n"
+		registrationMessage.setSubject("Digital Sutor :: Confirma√ß√£o de Registro");
+		registrationMessage.setText("Para confirmar seu endere√ßo de e-mail, favor clicar no link abaixo:\n"
 				+ appUrl + "/confirmar?token=" + usuario.getToken());
 		registrationMessage.setFrom("digitalsutor@gmail.com");
 		
 		mailService.sendMail(registrationMessage);
 		
-		rAttr.addFlashAttribute("registrationMessage", "Usu·rio cadastrado com sucesso! \n "
-				+ "Um e-mail de validaÁ„o ser· enviado ao endereÁo cadastrado.");
+		rAttr.addFlashAttribute("registrationMessage", "Usu√°rio cadastrado com sucesso! \n "
+				+ "Um e-mail de valida√ß√£o ser√° enviado ao endere√ßo cadastrado.");
 				
 		//securityService.autologin(usuario.getUsername(), usuario.getPassword());
 		
@@ -116,7 +116,7 @@ public class UsuarioController {
 		
 		usuario.setActivated(true);
 		
-		rAttr.addFlashAttribute("registrationMessage", "Usu·rio confirmado! VocÍ j· pode logar no Digital Sutor.");
+		rAttr.addFlashAttribute("registrationMessage", "Usu√°rio confirmado! Voc√™ j√° pode se logar no Digital Sutor.");
 		
 		usuarioService.save(usuario);
 		

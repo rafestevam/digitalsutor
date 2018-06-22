@@ -1,5 +1,8 @@
 eclipse.preferences.version=1
+encoding//src/main/java/br/com/intelliapps/digitalsutor/controllers/DashboardController.java=UTF-8
+encoding//src/main/java/br/com/intelliapps/digitalsutor/controllers/HomeController.java=UTF-8
 encoding//src/main/java/br/com/intelliapps/digitalsutor/controllers/LoginController.java=UTF-8
+encoding//src/main/java/br/com/intelliapps/digitalsutor/controllers/UsuarioController.java=UTF-8
 encoding//src/main/resources/application.properties=UTF-8
 encoding//src/main/resources/messages.properties=UTF-8
 encoding//src/main/resources/messages_pt_BR.properties=UTF-8
