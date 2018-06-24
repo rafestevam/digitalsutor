@@ -48,6 +48,8 @@ public class Usuario {// implements UserDetails {
 	
 	private Boolean activated;
 	
+	private Boolean locked;
+	
 	private String token;
 	
 	public Usuario() {
@@ -143,6 +145,12 @@ public class Usuario {// implements UserDetails {
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+	public Boolean getLocked() {
+		return locked;
+	}
+	public void setLocked(Boolean locked) {
+		this.locked = locked;
 	}
 	
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Digital Sutor : Cadastrar novo usuário</title>
+<th:block th:include="fragments/basiclayout.html :: headerfiles"></th:block>
+</head>
+<body class="bg-dark">
+	<div class="container">
+
+		<div class="card card-register mx-auto mt-5">
+			<div class="card-header">Digital Sutor :: Renovação de Senha</div>
+			<div class="card-body">
+				<div class="alert alert-success" th:if="${passwordMessage}" th:text="${passwordMessage}"></div>
+				<form action="#" th:action="@{/renew}" th:object="${usuario}" method="POST">
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col-md-6">
+								<label for="password">Senha</label> 
+								<input type="password" class="form-control" id="password" th:field="*{password}" th:errorclass="is-invalid">
+								<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></div>
+							</div>
+							<div class="col-md-6">
+								<label for="confPass">Confirmar Senha</label> 
+								<input type="password" class="form-control" id="confPass" th:field="*{confPass}" th:errorclass="is-invalid">
+								<div class="invalid-feedback" th:if="${#fields.hasErrors('confPass')}" th:errors="*{confPass}"></div>
+							</div>
+							<small id="passHelp" class="form-text text-muted">
+								A senha deve conter entre 6-10 caracteres, conter letras e números e não conter espaços, caracteres especiais ou emojis.
+							</small>
+						</div>
+					</div>
+					<input type="submit" class="btn btn-primary btn-block" value="Renovar Senha">
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Bootstrap core JavaScript-->
+	<script src="jquery/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Core plugin JavaScript-->
+	<script src="jquery-easing/jquery.easing.min.js"></script>
+	
+</body>
+</html>
