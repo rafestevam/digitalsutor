@@ -17,9 +17,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-//	@Autowired
-//	private RoleRepository roleRepository;
-	
 	@Autowired
 	private BCryptPasswordEncoder passEncoder;
 	
@@ -27,15 +24,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Set<Role> roles = new HashSet<Role>();
 		roles.add(new Role("ROLE_ADMIN"));
 		
-		//String userID = UUID.randomUUID().toString();
-		
-		//usuario.setId(userID);
 		if(usuario.getPassword().length() < 11) {
-			usuario.setPassword(passEncoder.encode(usuario.getPassword()));
-			usuario.setConfPass(passEncoder.encode(usuario.getConfPass()));
+			String encodedPassword = passEncoder.encode(usuario.getPassword());
+			usuario.setPassword(encodedPassword);
+			usuario.setConfPass(encodedPassword);
 			usuario.setRoles(roles);
 		}
-//		usuario.setRoles(new HashSet<Role>((Collection<? extends Role>) roleRepository.findAll()));
 		
 		usuarioRepository.save(usuario);
 	}

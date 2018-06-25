@@ -146,6 +146,7 @@ public class UsuarioController {
 			message.setSubject("Digital Sutor :: Recuperação de Senha");
 			message.setText("Para reiniciar sua senha, acesse o link abaixo: \n"
 					+ appUrl + "/renew?token=" + usuarioPers.getToken());
+			mailService.sendMail(message);
 			model.addAttribute("successForgetMessage", "Um e-mail com instruções para reinício "
 					+ "de senha foi enviado ");
 			
@@ -157,13 +158,44 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value="/renew", method=RequestMethod.GET)
-	public String renewPassword(Usuario usuario) {
+	public String renewPassword(@RequestParam("token") String token, Model model) {
+		
+		Usuario usuario = new Usuario();
+		usuario.setToken(token);
+		
+		Usuario usuarioPers = usuarioService.findByToken(token);
+		if(!usuarioPers.getLocked())
+			return "confirmarError";
+		
+		if(!model.containsAttribute("usuario"))
+			model.addAttribute("usuario", usuario);
+		
 		return "novasenha";
 	}
 	
 	@RequestMapping(value="/renew", method=RequestMethod.POST)
-	public String changePassword(@Valid Usuario usuarioToken, @RequestParam("token") String token) {
-		return null;
+	public String changePassword(Usuario usuarioToken, RedirectAttributes rAttr, BindingResult binding, Model model) {
+
+		Usuario usuario = usuarioService.findByToken(usuarioToken.getToken());
+		
+		if(usuario != null) {
+			usuario.setPassword(usuarioToken.getPassword());
+			usuario.setConfPass(usuarioToken.getConfPass());
+		}else {
+			return "confirmarError";
+		}
+		
+		UsuarioValidation usuarioValidation = new UsuarioValidation();
+		usuarioValidation.validatePassword(usuario, binding);
+		
+		if(binding.hasErrors())
+			return renewPassword(usuario.getToken(), model);
+			
+		usuario.setLocked(false);
+		usuarioService.save(usuario);
+		rAttr.addFlashAttribute("registrationMessage", "Senha alterada com sucesso!");
+		
+		return "redirect:login";
 	}
 	
 }

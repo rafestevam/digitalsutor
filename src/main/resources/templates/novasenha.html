@@ -13,6 +13,7 @@
 			<div class="card-body">
 				<div class="alert alert-success" th:if="${passwordMessage}" th:text="${passwordMessage}"></div>
 				<form action="#" th:action="@{/renew}" th:object="${usuario}" method="POST">
+					<input id="token" type="hidden" th:field="*{token}">
 					<div class="form-group">
 						<div class="form-row">
 							<div class="col-md-6">

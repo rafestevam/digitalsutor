@@ -26,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Transactional(readOnly=true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		boolean enabled = false;
+		boolean enabled = true;
 		boolean accountNonExpired = true;
 		boolean credentialsNonExpired = true;
 		boolean accountNonLocked = true;
@@ -41,9 +41,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		}
 		
 		if(!usuario.getActivated())
-			return new User(usuario.getUsername(), usuario.getPassword(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, roles);
+			enabled = false;
 		
-		return new User(usuario.getUsername(), usuario.getPassword(), roles);
+		if(usuario.getLocked())
+			accountNonLocked = false;
+			
+		return new User(usuario.getUsername(), usuario.getPassword(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, roles);
 	}
 
 }

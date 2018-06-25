@@ -27,31 +27,59 @@ public class UsuarioValidation implements Validator{
 		System.out.println(usuario.getUsername());
 		System.out.println(usuario.getPassword());
 		System.out.println(usuario.getConfPass());
-		if(!usuario.getPassword().equals(usuario.getConfPass())) {
-			errors.rejectValue("password", "field.error.passwordconflict");
-			errors.rejectValue("confPass", "field.error.passwordconflict");
+		
+		if(usuario.getPassword() != null && usuario.getConfPass() != null) {
+			if(!usuario.getPassword().equals(usuario.getConfPass())) {
+				errors.rejectValue("password", "field.error.passwordconflict");
+				errors.rejectValue("confPass", "field.error.passwordconflict");
+			}
+			if(usuario.getPassword().length() > 10) {
+				errors.rejectValue("password", "field.error.password.size");
+				errors.rejectValue("confPass", "field.error.password.size");
+			}
+			Pattern pattern = Pattern.compile("\\p{Alnum}+");
+			Matcher matcher = pattern.matcher(usuario.getPassword());
+			Matcher matcher2 = pattern.matcher(usuario.getConfPass());
+			if (!matcher.matches() && !matcher2.matches()) {
+				errors.rejectValue("password", "field.error.password.charInvalid");
+				errors.rejectValue("confPass", "field.error.password.charInvalid");
+			}
+			
 		}
-		if(!usuario.getAccept())
-			errors.rejectValue("accept", "field.error.noaccept");
-		
-		if(usuario.getPassword().length() > 10) {
-			errors.rejectValue("password", "field.error.password.size");
-			errors.rejectValue("confPass", "field.error.password.size");
+
+		if(usuario.getAccept() != null) {
+			if(!usuario.getAccept())
+				errors.rejectValue("accept", "field.error.noaccept");
 		}
 		
-		Pattern patternSpace = Pattern.compile("[,\\s]");
-		Matcher matcherSpace = patternSpace.matcher(usuario.getUsername());
-		if(matcherSpace.find())
-			errors.rejectValue("username", "field.error.username.blanks");
-		
-		Pattern pattern = Pattern.compile("\\p{Alnum}+");
-		Matcher matcher = pattern.matcher(usuario.getPassword());
-		Matcher matcher2 = pattern.matcher(usuario.getConfPass());
-		if (!matcher.matches() && !matcher2.matches()) {
-			errors.rejectValue("password", "field.error.password.charInvalid");
-			errors.rejectValue("confPass", "field.error.password.charInvalid");
+		if(usuario.getUsername() != null) {
+			Pattern patternSpace = Pattern.compile("[,\\s]");
+			Matcher matcherSpace = patternSpace.matcher(usuario.getUsername());
+			if(matcherSpace.find())
+				errors.rejectValue("username", "field.error.username.blanks");
 		}
 		
+	}
+	
+	public void validatePassword(Usuario usuario, Errors errors) {
+		if(usuario.getPassword() != null && usuario.getConfPass() != null) {
+			if(!usuario.getPassword().equals(usuario.getConfPass())) {
+				errors.rejectValue("password", "field.error.passwordconflict");
+				errors.rejectValue("confPass", "field.error.passwordconflict");
+			}
+			if(usuario.getPassword().length() > 10) {
+				errors.rejectValue("password", "field.error.password.size");
+				errors.rejectValue("confPass", "field.error.password.size");
+			}
+			Pattern pattern = Pattern.compile("\\p{Alnum}+");
+			Matcher matcher = pattern.matcher(usuario.getPassword());
+			Matcher matcher2 = pattern.matcher(usuario.getConfPass());
+			if (!matcher.matches() && !matcher2.matches()) {
+				errors.rejectValue("password", "field.error.password.charInvalid");
+				errors.rejectValue("confPass", "field.error.password.charInvalid");
+			}
+			
+		}
 	}
 
 }
