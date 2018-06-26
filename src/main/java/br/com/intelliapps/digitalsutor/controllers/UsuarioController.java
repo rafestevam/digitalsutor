@@ -178,7 +178,7 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value="/renew", method=RequestMethod.POST)
-	public String changePassword(Usuario usuarioToken, RedirectAttributes rAttr, BindingResult binding, Model model) {
+	public String renewPassword(Usuario usuarioToken, RedirectAttributes rAttr, BindingResult binding, Model model) {
 
 		Usuario usuario = usuarioService.findByToken(usuarioToken.getToken());
 		
@@ -232,6 +232,37 @@ public class UsuarioController {
 		model.addAttribute("profileMessage", "Perfil alterado com sucesso!");
 		
 		return "perfil";
+	}
+	
+	@RequestMapping(value="/password", method=RequestMethod.GET)
+	public String changePassword(Usuario usuario, Model model) {
+		Usuario usuarioLogado = usuarioLogadoService.usuarioLogado();
+		model.addAttribute("nome", usuarioLogado.getNome());
+		model.addAttribute("ultimonome", usuarioLogado.getUltimonome());
+		
+		if(usuario.getUsername() == null)
+			model.addAttribute("usuario", usuarioLogado);
+
+		if(usuario.getUsername() != null)
+			model.addAttribute("usuario", usuario);
+		
+		return "alterarsenha";
+	}
+	
+	@RequestMapping(value="/password", method=RequestMethod.POST)
+	@CacheEvict("usuarioLogado")
+	public String changePassword(@Valid Usuario usuario, BindingResult binding, Model model) {
+		
+		if(binding.hasFieldErrors("senha") || binding.hasFieldErrors("confPass"))
+			return changePassword(usuario, model);
+		
+		Usuario usuarioPers = usuarioLogadoService.usuarioLogado();
+		usuarioPers.setPassword(usuario.getPassword());
+		usuarioPers.setConfPass(usuario.getConfPass());
+		usuarioService.save(usuarioPers);
+		model.addAttribute("passwordMessage", "Senha alterada com sucesso!");
+		
+		return "alterarsenha";
 	}
 	
 	
