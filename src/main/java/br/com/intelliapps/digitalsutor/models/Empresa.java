@@ -2,6 +2,7 @@ package br.com.intelliapps.digitalsutor.models;
 
 import java.util.Set;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +28,8 @@ public class Empresa {
 	@NotNull
 	private String cNPJ;
 	
-	private Aliquota aliquota;
+	@ElementCollection
+	private Set<Aliquota> aliquota;
 	
 	@ManyToMany
 	@JoinTable(name="empresa_usuarios", joinColumns=@JoinColumn(name="empresa_id"), inverseJoinColumns=@JoinColumn(name="usuario_id"))
@@ -65,11 +67,11 @@ public class Empresa {
 		this.cNPJ = cnpj;
 	}
 
-	public Aliquota getAliquota() {
+	public Set<Aliquota> getAliquota() {
 		return aliquota;
 	}
 
-	public void setAliquota(Aliquota aliquota) {
+	public void setAliquota(Set<Aliquota> aliquota) {
 		this.aliquota = aliquota;
 	}
 

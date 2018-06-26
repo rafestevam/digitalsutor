@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.intelliapps.digitalsutor.models.Usuario;
 import br.com.intelliapps.digitalsutor.services.EmailService;
+import br.com.intelliapps.digitalsutor.services.UsuarioLogadoService;
 import br.com.intelliapps.digitalsutor.services.UsuarioService;
 import br.com.intelliapps.digitalsutor.validation.UsuarioValidation;
 
@@ -30,6 +32,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private EmailService mailService;
+	
+	@Autowired
+	private UsuarioLogadoService usuarioLogadoService;
 	
 //	@Autowired
 //	private SecurityService securityService;
@@ -49,7 +54,6 @@ public class UsuarioController {
 	public String formUsuario(Usuario usuario) {
 		return "novousuario";
 	}
-	
 	
 	@RequestMapping(value="/novousuario", method=RequestMethod.POST)
 	public String criaUsuario(@Valid Usuario usuario, BindingResult binding, RedirectAttributes rAttr, HttpServletRequest req) {
@@ -197,5 +201,64 @@ public class UsuarioController {
 		
 		return "redirect:login";
 	}
+	
+	@RequestMapping(value="/profile", method=RequestMethod.GET)
+	public String changeProfile(Usuario usuario, Model model) {
+		Usuario usuarioLogado = usuarioLogadoService.usuarioLogado();
+		model.addAttribute("nome", usuarioLogado.getNome());
+		model.addAttribute("ultimonome", usuarioLogado.getUltimonome());
+		
+		if(usuario.getUsername() == null)
+			model.addAttribute("usuario", usuarioLogado);
+
+		if(usuario.getUsername() != null)
+			model.addAttribute("usuario", usuario);
+		
+		return "perfil";
+	}
+	
+	@RequestMapping(value="/profile", method=RequestMethod.POST)
+	@CacheEvict("usuarioLogado")
+	public String changeProfile(@Valid Usuario usuario, BindingResult binding, Model model) {
+		
+		if(binding.hasFieldErrors("nome") || binding.hasFieldErrors("email"))
+			return changeProfile(usuario, model);
+		
+		Usuario usuarioPers = usuarioLogadoService.usuarioLogado();
+		usuarioPers.setNome(usuario.getNome());
+		usuarioPers.setUltimonome(usuario.getUltimonome());
+		usuarioPers.setEmail(usuario.getEmail());
+		usuarioService.save(usuarioPers);
+		model.addAttribute("profileMessage", "Perfil alterado com sucesso!");
+		
+		return "perfil";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

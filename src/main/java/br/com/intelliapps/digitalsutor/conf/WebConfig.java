@@ -2,6 +2,8 @@ package br.com.intelliapps.digitalsutor.conf;
 
 import java.util.Properties;
 
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,6 +53,22 @@ public class WebConfig implements WebMvcConfigurer {
 		mailSender.setJavaMailProperties(mailProperties);
 		
 		return mailSender;
+	}
+	
+	@Bean
+	public CacheManager cacheManager() {
+		
+		return new ConcurrentMapCacheManager();
+		
+//		CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder()
+//				.maximumSize(100)
+//				.expireAfterAccess(5, TimeUnit.MINUTES);
+//		
+//		GuavaCacheManager manager = new GuavaCacheManager();
+//		manager.setCacheBuilder(builder);
+//		
+//		return manager;
+		
 	}
 	
 }

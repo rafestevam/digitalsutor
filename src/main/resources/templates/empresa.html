@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Digital Sutor :: Dashboard</title>
+<th:block th:include="fragments/basiclayout.html :: headerfiles">
+</th:block> 
+</head>
+<body>
+
+	<nav th:replace="fragments/basiclayout.html :: userData(${nome}, ${ultimonome})"></nav>
+
+	<div class="container">
+		
+	</div>
+	
+	<footer th:insert="fragments/basiclayout.html :: footer.sticky-footer"></footer>
+	
+	<!--  
+	<a class="scroll-to-top rounded" href="#page-top" style="display: inline;">
+		<i class="fa fa-angle-up"></i>
+	</a>
+	-->
+	
+	<div th:insert="fragments/basiclayout.html :: logoutModal"></div>
+	
+	<!-- Bootstrap core JavaScript-->
+	<script src="jquery/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Core plugin JavaScript-->
+	<script src="jquery-easing/jquery.easing.min.js"></script>
+	
+	<!-- Page level plugin JavaScript-->
+	<script src="chart.js/Chart.min.js"></script>
+	<script src="datatables/jquery.dataTables.js"></script>
+	<script src="datatables/dataTables.bootstrap4.js"></script>
+	
+	<!-- Custom scripts for all pages-->
+	<script src="custom/js/sb-admin.min.js"></script>
+	
+	<!-- Custom scripts for this page-->
+	<script src="custom/js/sb-admin-datatables.min.js"></script>
+	<script src="custom/js/sb-admin-charts.min.js"></script>
+
+</body>
+</html>

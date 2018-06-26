@@ -22,10 +22,20 @@
 		<div class="navbar-collapse collapse" id="navbarResponsive" style>
 			<ul class="navbar-nav navbar-sidenav" id="modulesNav">
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title data-original-title="Dashboard">
-					<a class="nav-link" href="#">
+					<a class="nav-link" th:href="@{/dashboard}">
 						<i class="fas fa-tachometer-alt"></i>
 						<span class="nav-link-text">Dashboard</span>
 					</a>
+				</li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title data-original-title="Empresas">
+					<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseEmpresas" data-parent="#modulesNav">
+						<i class="fas fa-building"></i>
+						<span class="nav-link-text">Empresas</span>
+					</a>
+					<ul class="sidenav-second-level collapse" id="collapseEmpresas">
+						<li><a th:href="@{/empresa}">Cadastro de Empresas</a>
+						<li><a href="#">Minhas Empresas</a>
+					</ul>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title data-original-title="Produtos">
 					<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProdutos" data-parent="#modulesNav">
@@ -67,7 +77,7 @@
 							<span th:text="${ultimonome}"></span>
 						</h6>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">
+						<a class="dropdown-item" th:href="@{/profile}">
 							<small class="text-muted">Editar Perfil</small>
 						</a>
 						<div class="dropdown-divider"></div>
