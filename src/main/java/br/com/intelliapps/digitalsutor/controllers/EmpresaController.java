@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.intelliapps.digitalsutor.models.Empresa;
+import br.com.intelliapps.digitalsutor.models.TipoAliq;
 import br.com.intelliapps.digitalsutor.models.Usuario;
 import br.com.intelliapps.digitalsutor.services.UsuarioLogadoService;
 
@@ -23,6 +24,8 @@ public class EmpresaController {
 		
 		model.addAttribute("nome", usuario.getNome());
 		model.addAttribute("ultimonome", usuario.getUltimonome());
+		
+		model.addAttribute("tipoAliq", TipoAliq.values());
 		
 		return "empresa";
 	}
