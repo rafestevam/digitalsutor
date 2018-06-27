@@ -229,6 +229,8 @@ public class UsuarioController {
 		usuarioPers.setUltimonome(usuario.getUltimonome());
 		usuarioPers.setEmail(usuario.getEmail());
 		usuarioService.save(usuarioPers);
+		model.addAttribute("nome", usuarioPers.getNome());
+		model.addAttribute("ultimonome", usuarioPers.getUltimonome());
 		model.addAttribute("profileMessage", "Perfil alterado com sucesso!");
 		
 		return "perfil";
@@ -260,6 +262,8 @@ public class UsuarioController {
 		usuarioPers.setPassword(usuario.getPassword());
 		usuarioPers.setConfPass(usuario.getConfPass());
 		usuarioService.save(usuarioPers);
+		model.addAttribute("nome", usuarioPers.getNome());
+		model.addAttribute("ultimonome", usuarioPers.getUltimonome());
 		model.addAttribute("passwordMessage", "Senha alterada com sucesso!");
 		
 		return "alterarsenha";

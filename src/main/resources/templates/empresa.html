@@ -24,23 +24,60 @@
 			
 			<div class="card mb-3">
 				<div class="card-header">
+					<i class="far fa-building"></i>
 					Dados da Empresa
 				</div>
 				<div class="card-body">
 					<form th:action="@{/criaempresa}" method="POST" th:object="${empresa}">
 						<div class="form-group">
 							<div class="form-row">
-								<div class="form-check">
-									<div th:each="tipo, status : ${tipoAliq}" class="form-group col-md-6">
-										<input class="form-check-input" type="radio" name="aliquota" th:id="'aliquota[' +${status.index}+ '].aliquota'" data-toggle="collapse" th:attr="data-target='#' + 'aliquota[' +${status.index}+ '].aliquota'">
-										<label class="form-check-label" th:text="${tipo}"></label>
-										<div th:id="'aliquota[' +${status.index}+ '].aliquota'">
-											<input class="form-control" type="text">
+								<div class="col-md-6">
+									<label for="nome">Nome</label>
+									<input class="form-control" type="text" name="nome" id="nome" th:field="*{nome}">
+								</div>
+								<div class="col-md-6">
+									<label for="cnpj">CNPJ</label>
+									<input class="form-control" type="text" name="cnpj" id="cnpj" th:field="*{cnpj}">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="descricao">Descrição</label>
+							<textarea class="form-control" name="descricao" id="descricao" th:field="*{descricao}" rows="5"></textarea>
+						</div>
+					
+						<div class="form-group">
+							<div class="card" id="aliqgroup">
+								<div class="card-header">
+									<i class="far fa-money-bill-alt"></i>
+									Enquadramento da Empresa
+								</div>
+								<div class="card-body">
+									<div th:each="tipo, status : ${tipoAliq}" class="form-group">
+										<a data-toggle="collapse" th:attr="data-target='#aliquota[' +${status.index}+ '].tipo'" th:href="'#aliquota[' +${status.index}+ '].tipo'">
+											<span th:text="${tipo}"></span>
+										</a>
+										<div class="collapse" th:id="'aliquota[' +${status.index}+ '].tipo'">
+											<input class="form-control" type="text" th:id="'aliquota[' +${status.index}+ '].aliquota'">
+											<input type="hidden" th:id="'aliquota[' +${status.index}+ '].tipo'" th:value="${tipo}">
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						
+						<div class="form-group">
+							<div class="card">
+								<div class="card-header">
+									<i class="fas fa-users"></i>
+									Usuários vinculados à Empresa
+								</div>
+								<div class="card-body">
+									Lorem ipsum dolem
+								</div>
+							</div>
+						</div>
+						
 					</form>
 				</div>
 			</div>
