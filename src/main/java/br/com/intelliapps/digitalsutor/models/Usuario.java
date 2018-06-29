@@ -1,5 +1,7 @@
 package br.com.intelliapps.digitalsutor.models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -52,13 +54,16 @@ public class Usuario {// implements UserDetails {
 	
 	private String token;
 	
-	public Usuario() {
-		this.setActivated(false);
-	}
-	
 	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name="usuario_roles", joinColumns=@JoinColumn(name="usuario_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
 	private Set<Role> roles;// = new ArrayList<Role>();
+
+	@ManyToMany(mappedBy="usuarios")
+	private List<Empresa> empresas = new ArrayList<Empresa>();
+	
+	public Usuario() {
+		this.setActivated(false);
+	}
 
 	public Long getId() {
 		return id;
@@ -151,6 +156,14 @@ public class Usuario {// implements UserDetails {
 	}
 	public void setLocked(Boolean locked) {
 		this.locked = locked;
+	}
+
+	public List<Empresa> getEmpresas() {
+		return empresas;
+	}
+
+	public void setEmpresas(List<Empresa> empresas) {
+		this.empresas = empresas;
 	}
 	
 }

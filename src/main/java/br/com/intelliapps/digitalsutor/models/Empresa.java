@@ -1,7 +1,9 @@
 package br.com.intelliapps.digitalsutor.models;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,15 +27,14 @@ public class Empresa {
 	@Lob
 	private String descricao;
 	
-	@NotNull
 	private String cNPJ;
 	
 	@ElementCollection
-	private Set<Aliquota> aliquota;
+	private List<Aliquota> aliquotas = new ArrayList<Aliquota>();
 	
-	@ManyToMany
+	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name="empresa_usuarios", joinColumns=@JoinColumn(name="empresa_id"), inverseJoinColumns=@JoinColumn(name="usuario_id"))
-	private Set<Usuario> usuarios; // = new ArrayList<Usuario>();
+	private List<Usuario> usuarios = new ArrayList<Usuario>();
 
 	public Long getId() {
 		return id;
@@ -67,19 +68,19 @@ public class Empresa {
 		this.cNPJ = cnpj;
 	}
 
-	public Set<Aliquota> getAliquota() {
-		return aliquota;
+	public List<Aliquota> getAliquotas() {
+		return aliquotas;
 	}
 
-	public void setAliquota(Set<Aliquota> aliquota) {
-		this.aliquota = aliquota;
+	public void setAliquotas(List<Aliquota> aliquota) {
+		this.aliquotas = aliquota;
 	}
 
-	public Set<Usuario> getUsuarios() {
+	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
 
-	public void setUsuarios(Set<Usuario> usuarios) {
+	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 	

@@ -20,7 +20,9 @@
 				<li class="breadcrumb-item"><a href="#">Empresas</a></li>
 				<li class="breadcrumb-item active">Cadastro de Empresas</li>
 			</ol>
-
+			
+			<div class="alert alert-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+			
 			<div class="card mb-3">
 				<div class="card-header">
 					<i class="far fa-building"></i> Dados da Empresa
@@ -31,7 +33,8 @@
 							<div class="form-row">
 								<div class="col-md-6">
 									<label for="nome">Nome</label> <input class="form-control"
-										type="text" name="nome" id="nome" th:field="*{nome}">
+										type="text" name="nome" id="nome" th:field="*{nome}" th:errorclass="is-invalid">
+										<div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" ></div>
 								</div>
 								<div class="col-md-6">
 									<label for="cnpj">CNPJ</label> <input class="form-control"
@@ -53,17 +56,15 @@
 								<div class="card-body">
 									<div th:each="tipo, status : ${tipoAliq}" class="form-group">
 										<a data-toggle="collapse"
-											th:attr="data-target='#aliquota[' +${status.index}+ '].tipo'"
-											th:href="'#aliquota[' +${status.index}+ '].tipo'"> <span
+											th:attr="data-target='#aliquotas[' +${status.index}+ '].tipo'"
+											th:href="'#aliquotas[' +${status.index}+ '].tipo'"> <span
 											th:text="${tipo}"></span>
 										</a>
 										<div class="collapse"
-											th:id="'aliquota[' +${status.index}+ '].tipo'">
+											th:id="'aliquotas[' +${status.index}+ '].tipo'">
 											<input class="form-control" type="text"
-												th:id="'aliquota[' +${status.index}+ '].aliquota'">
-											<input type="hidden"
-												th:id="'aliquota[' +${status.index}+ '].tipo'"
-												th:value="${tipo}">
+												th:id="'aliquotas['+${status.index}+'].aliquota'" th:field="*{aliquotas[__${status.index}__].aliquota}">
+											<input type="text" th:field="*{aliquotas[__${status.index}__].tipo}" th:value="${tipo}" style="display:none;">
 										</div>
 									</div>
 								</div>
@@ -86,6 +87,10 @@
 														aria-describedby="dataTable_info" style="width: 100%;">
 														<thead>
 															<tr role="row">
+																<th class="sorting" tabindex="0"
+																	aria-controls="dataTable" rowspan="1" colspan="1"
+																	aria-label="Position: activate to sort column ascending"
+																	style="width: 1px;"></th>
 																<th class="sorting_asc" tabindex="0"
 																	aria-controls="dataTable" rowspan="1" colspan="1"
 																	aria-sort="ascending"
@@ -95,24 +100,20 @@
 																	aria-controls="dataTable" rowspan="1" colspan="1"
 																	aria-label="Position: activate to sort column ascending"
 																	style="width: 238px;">E-mail</th>
-																<th class="sorting" tabindex="0"
-																	aria-controls="dataTable" rowspan="1" colspan="1"
-																	aria-label="Office: activate to sort column ascending"
-																	style="width: 110px;">Proprietário</th>
 															</tr>
 														</thead>
 														<tfoot>
 															<tr>
+																<th rowspan="1" colspan="1"></th>
 																<th rowspan="1" colspan="1">Nome</th>
 																<th rowspan="1" colspan="1">E-mail</th>
-																<th rowspan="1" colspan="1">Proprietário</th>
 															</tr>
 														</tfoot>
 														<tbody>
 															<tr role="row" class="odd" th:each="usuario, status : ${empresa.usuarios}">
+																<td><input type="checkbox" id="checkUsuario">
 																<td class="sorting_1" th:text="${usuario.nome} + ' ' + ${usuario.ultimonome}"></td>
 																<td th:text="${usuario.email}"></td>
-																<td>Sim</td>
 															</tr>
 														</tbody>
 													</table>
@@ -125,6 +126,10 @@
 									<a class="btn btn-primary" href="#">
 										<i class="fas fa-user-plus"></i>
 										Vincular usuários
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="fas fa-user-minus"></i>
+										Remover usuários
 									</a>
 								</div>
 							</div>
@@ -153,7 +158,7 @@
 	</div>
 
 	<footer th:insert="fragments/basiclayout.html :: footer.sticky-footer"></footer>
-
+	
 	<!--  
 	<a class="scroll-to-top rounded" href="#page-top" style="display: inline;">
 		<i class="fa fa-angle-up"></i>

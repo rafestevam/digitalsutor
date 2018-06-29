@@ -16,6 +16,8 @@
 	
 	<footer th:insert="fragments/basiclayout.html :: footer.sticky-footer"></footer>
 	
+	<div th:if="${registrationMessage}" th:insert="fragments/basicLayout.html :: successInsert(${registrationMessage})"></div>
+	
 	<!--  
 	<a class="scroll-to-top rounded" href="#page-top" style="display: inline;">
 		<i class="fa fa-angle-up"></i>
@@ -42,6 +44,12 @@
 	<!-- Custom scripts for this page-->
 	<script src="custom/js/sb-admin-datatables.min.js"></script>
 	<script src="custom/js/sb-admin-charts.min.js"></script>
+	
+	<script type="text/javascript">
+		$(window).on('load', function(){
+			$('#successModal').modal('show');
+		});
+	</script>
 
 </body>
 </html>
