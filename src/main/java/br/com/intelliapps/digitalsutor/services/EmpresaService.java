@@ -7,5 +7,7 @@ public interface EmpresaService {
 	public void save(Empresa empresa);
 	
 	public Empresa findByCNPJ(String cnpj);
+	
+	public boolean existsByCNPJ(String cnpj);
 
 }

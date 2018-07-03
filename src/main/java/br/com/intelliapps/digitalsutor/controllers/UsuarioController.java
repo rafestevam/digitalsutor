@@ -1,5 +1,6 @@
 package br.com.intelliapps.digitalsutor.controllers;
 
+import java.util.Locale;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.context.MessageSource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +38,12 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioLogadoService usuarioLogadoService;
 	
+	@Autowired
+	private MessageSource messageSource;
+	
+	@Autowired
+	private Locale locale;
+	
 //	@Autowired
 //	private SecurityService securityService;
 	
@@ -62,12 +70,12 @@ public class UsuarioController {
 			return formUsuario(usuario);
 		
 		if(usuarioService.existsByUsername(usuario.getUsername())) {
-			binding.rejectValue("username", "field.error.username.exists");
+			binding.rejectValue("username", messageSource.getMessage("field.error.exists", new String[] {"Nome de Usuário"}, locale));
 			return formUsuario(usuario);
 		}
 		
 		if(usuarioService.existsByUsername(usuario.getEmail())) {
-			binding.rejectValue("email", "field.error.email.exists");
+			binding.rejectValue("username", messageSource.getMessage("field.error.exists", new String[] {"Endereço de e-mail"}, locale));
 			return formUsuario(usuario);
 		}
 		
@@ -79,15 +87,19 @@ public class UsuarioController {
 		
 		SimpleMailMessage registrationMessage = new SimpleMailMessage();
 		registrationMessage.setTo(usuario.getEmail());
-		registrationMessage.setSubject("Digital Sutor :: Confirmação de Registro");
-		registrationMessage.setText("Para confirmar seu endereço de e-mail, favor clicar no link abaixo:\n"
-				+ appUrl + "/confirmar?token=" + usuario.getToken());
-		registrationMessage.setFrom("digitalsutor@gmail.com");
+		registrationMessage.setSubject(messageSource.getMessage("email.message.confirmuser.subject", new String[] {}, locale));
+		registrationMessage.setText(messageSource.getMessage("email.message.confirmuser.text", new String[] {appUrl, usuario.getToken()}, locale));
+		registrationMessage.setFrom(messageSource.getMessage("email.message.emailfrom", new String[] {}, locale));
+//		registrationMessage.setSubject("Digital Sutor :: Confirmação de Registro");
+//		registrationMessage.setText("Para confirmar seu endereço de e-mail, favor clicar no link abaixo:\n"
+//				+ appUrl + "/confirmar?token=" + usuario.getToken());
+//		registrationMessage.setFrom("digitalsutor@gmail.com");
 		
 		mailService.sendMail(registrationMessage);
+		rAttr.addFlashAttribute("registrationMessage", messageSource.getMessage("message.usuario.create.success", new String[] {}, locale));
 		
-		rAttr.addFlashAttribute("registrationMessage", "Usuário cadastrado com sucesso! \n "
-				+ "Um e-mail de validação será enviado ao endereço cadastrado.");
+//		rAttr.addFlashAttribute("registrationMessage", "Usuário cadastrado com sucesso! \n "
+//				+ "Um e-mail de validação será enviado ao endereço cadastrado.");
 				
 		//securityService.autologin(usuario.getUsername(), usuario.getPassword());
 		
@@ -120,7 +132,8 @@ public class UsuarioController {
 		
 		usuario.setActivated(true);
 		
-		rAttr.addFlashAttribute("registrationMessage", "Usuário confirmado! Você já pode se logar no Digital Sutor.");
+		rAttr.addFlashAttribute("registrationMessage", messageSource.getMessage("message.usuario.confirmed.success", new String[] {}, locale));
+//		rAttr.addFlashAttribute("registrationMessage", "Usuário confirmado! Você já pode se logar no Digital Sutor.");
 		
 		usuarioService.save(usuario);
 		
@@ -145,17 +158,23 @@ public class UsuarioController {
 			String appUrl = req.getScheme() + "://" + req.getServerName();
 			
 			SimpleMailMessage message = new SimpleMailMessage();
-			message.setFrom("digitalsutor@gmail.com");
+			message.setFrom(messageSource.getMessage("email.message.emailfrom", new String[] {}, locale));
 			message.setTo(usuario.getEmail());
-			message.setSubject("Digital Sutor :: Recuperação de Senha");
-			message.setText("Para reiniciar sua senha, acesse o link abaixo: \n"
-					+ appUrl + "/renew?token=" + usuarioPers.getToken());
+			message.setSubject(messageSource.getMessage("email.message.passwordrecover.subject", new String[] {}, locale));
+			message.setText(messageSource.getMessage("email.message.passwordrecover.text", new String[] {appUrl, usuarioPers.getToken()}, locale));
+//			message.setFrom("digitalsutor@gmail.com");
+//			message.setTo(usuario.getEmail());
+//			message.setSubject("Digital Sutor :: Recuperação de Senha");
+//			message.setText("Para reiniciar sua senha, acesse o link abaixo: \n"
+//					+ appUrl + "/renew?token=" + usuarioPers.getToken());
 			mailService.sendMail(message);
-			model.addAttribute("successForgetMessage", "Um e-mail com instruções para reinício "
-					+ "de senha foi enviado ");
+			model.addAttribute("successForgetMessage", messageSource.getMessage("message.usuario.recoverPassword.success", new String[] {}, locale));
+//			model.addAttribute("successForgetMessage", "Um e-mail com instruções para reinício "
+//					+ "de senha foi enviado ");
 			
 		}else {
-			model.addAttribute("errorForgetMessage", "Endereço de e-mail não cadastrado!");
+			model.addAttribute("errorForgetMessage", messageSource.getMessage("message.usuario.recoverPassword.error", new String[] {}, locale));
+//			model.addAttribute("errorForgetMessage", "Endereço de e-mail não cadastrado!");
 		}
 		
 		return "esquecisenha";
@@ -197,7 +216,8 @@ public class UsuarioController {
 			
 		usuario.setLocked(false);
 		usuarioService.save(usuario);
-		rAttr.addFlashAttribute("registrationMessage", "Senha alterada com sucesso!");
+		rAttr.addFlashAttribute("registrationMessage", messageSource.getMessage("message.usuario.renewPassword.success", new String[] {}, locale));
+//		rAttr.addFlashAttribute("registrationMessage", "Senha alterada com sucesso!");
 		
 		return "redirect:login";
 	}
@@ -231,7 +251,9 @@ public class UsuarioController {
 		usuarioService.save(usuarioPers);
 		model.addAttribute("nome", usuarioPers.getNome());
 		model.addAttribute("ultimonome", usuarioPers.getUltimonome());
-		model.addAttribute("profileMessage", "Perfil alterado com sucesso!");
+		model.addAttribute("profileMessage", messageSource.getMessage("message.usuario.profile.success", new String[] {}, locale));
+//		model.addAttribute("profileMessage", "Perfil alterado com sucesso!");
+		
 		
 		return "perfil";
 	}
@@ -264,36 +286,10 @@ public class UsuarioController {
 		usuarioService.save(usuarioPers);
 		model.addAttribute("nome", usuarioPers.getNome());
 		model.addAttribute("ultimonome", usuarioPers.getUltimonome());
-		model.addAttribute("passwordMessage", "Senha alterada com sucesso!");
+		model.addAttribute("passwordMessage", messageSource.getMessage("message.usuario.renewPassword.success", new String[] {}, locale));
+//		model.addAttribute("passwordMessage", "Senha alterada com sucesso!");
 		
 		return "alterarsenha";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

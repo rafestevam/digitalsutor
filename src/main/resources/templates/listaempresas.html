@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Digital Sutor :: Dashboard</title>
+<th:block th:include="fragments/basiclayout.html :: headerfiles">
+</th:block> 
+</head>
+<body class="fixed-nav sticky-footer bg-dark">
+
+	<nav th:replace="fragments/basiclayout.html :: userData(${nome}, ${ultimonome})"></nav>
+
+	<div class="content-wrapper">
+	
+		<div class="container-fluid">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="#">Empresas</a></li>
+				<li class="breadcrumb-item active">Minhas Empresas</li>
+			</ol>
+			<div class="card mb-3">
+				<div class="card-header">
+					<i class="far fa-building"></i>
+					Empresas atribuídas a mim
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<div id="empresasTable_wrapper" class="dataTable_wrapper container-fluid dt-bootstrap4">
+							<div class="row">
+								<table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+									<thead>
+										<tr role="row">
+											<th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 152px;">Nome da Empresa</th>
+											<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 152px;">CNPJ</th>
+											<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 152px;">Proprietário</th>
+											<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 152px;">Alterar</th>
+											<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 152px;">Excluir</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th rowspan="1" colspan="1">Nome da Empresa</th>
+											<th rowspan="1" colspan="1">CNPJ</th>
+											<th rowspan="1" colspan="1">Proprietário</th>
+											<th rowspan="1" colspan="1">Alterar</th>
+											<th rowspan="1" colspan="1">Excluir</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										<tr role="row" class="odd" th:each="empresa, status : ${empresas}">
+											<td th:text="${empresa.nome}"></td>
+											<td th:text="${empresa.cnpj}"></td>
+											<td>Sim</td>
+											<td><i class="fas fa-pencil-alt"></i></td>
+											<td><i class="fas fa-trash-alt"></i></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<footer th:insert="fragments/basiclayout.html :: footer.sticky-footer"></footer>
+	
+	<div th:if="${registrationMessage}" th:insert="fragments/basicLayout.html :: successInsert(${registrationMessage})"></div>
+	
+	<!--  
+	<a class="scroll-to-top rounded" href="#page-top" style="display: inline;">
+		<i class="fa fa-angle-up"></i>
+	</a>
+	-->
+	
+	<div th:insert="fragments/basiclayout.html :: logoutModal"></div>
+	
+	<!-- Bootstrap core JavaScript-->
+	<script src="jquery/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Core plugin JavaScript-->
+	<script src="jquery-easing/jquery.easing.min.js"></script>
+	
+	<!-- Page level plugin JavaScript-->
+	<script src="chart.js/Chart.min.js"></script>
+	<script src="datatables/jquery.dataTables.js"></script>
+	<script src="datatables/dataTables.bootstrap4.js"></script>
+	
+	<!-- Custom scripts for all pages-->
+	<script src="custom/js/sb-admin.min.js"></script>
+	
+	<!-- Custom scripts for this page-->
+	<script src="custom/js/sb-admin-datatables.min.js"></script>
+	<script src="custom/js/sb-admin-charts.min.js"></script>
+	
+	<script type="text/javascript">
+		$(window).on('load', function(){
+			$('#successModal').modal('show');
+		});
+	</script>
+
+</body>
+</html>

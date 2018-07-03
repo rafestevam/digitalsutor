@@ -38,7 +38,8 @@
 								</div>
 								<div class="col-md-6">
 									<label for="cnpj">CNPJ</label> <input class="form-control"
-										type="text" name="cnpj" id="cnpj" th:field="*{cnpj}" data-mask="00.000.000/0000-00">
+										type="text" name="cnpj" id="cnpj" th:field="*{cnpj}" data-mask="00.000.000/0000-00" th:errorclass="is-invalid">
+									<div class="invalid-feedback" th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}" ></div>
 								</div>
 							</div>
 						</div>
@@ -62,9 +63,8 @@
 										</a>
 										<div class="collapse"
 											th:id="'aliquotas[' +${status.index}+ '].tipo'">
-											<input class="form-control" type="text"
-												th:id="'aliquotas['+${status.index}+'].aliquota'" th:field="*{aliquotas[__${status.index}__].aliquota}">
-											<input type="text" th:field="*{aliquotas[__${status.index}__].tipo}" th:value="${tipo}" style="display:none;">
+											<input class="form-control" type="text" th:field="*{aliquotas[__${status.index}__].aliquota}">
+											<input type="hidden" th:attr="name='aliquotas[__${status.index}__].tipo'" th:value="${tipo}">
 										</div>
 									</div>
 								</div>

@@ -14,6 +14,7 @@ public class EmpresaValidation implements Validator{
 
 	public void validate(Object target, Errors errors) {
 		ValidationUtils.rejectIfEmpty(errors, "nome", "field.error.empty", new String[] {"Nome"});
+		
 	}
 
 	
