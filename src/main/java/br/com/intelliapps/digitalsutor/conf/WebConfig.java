@@ -78,4 +78,9 @@ public class WebConfig implements WebMvcConfigurer {
 		return LocaleContextHolder.getLocale();
 	}
 	
+//	@Override
+//	public void addFormatters(FormatterRegistry registry) {
+//		registry.addConverter(new StringUsuarioConverter());
+//	}
+	
 }

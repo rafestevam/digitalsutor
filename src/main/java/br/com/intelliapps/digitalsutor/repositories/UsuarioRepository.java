@@ -6,7 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import br.com.intelliapps.digitalsutor.models.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+	
+	@Query("select u from Usuario u where u.username = ?1")
 	Usuario findByUsername(String username);
+	
 	Usuario findByToken(String token);
 	Usuario findByEmail(String email);
 	

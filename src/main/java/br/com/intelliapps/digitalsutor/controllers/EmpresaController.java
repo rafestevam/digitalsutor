@@ -1,5 +1,7 @@
 package br.com.intelliapps.digitalsutor.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -21,6 +23,7 @@ import br.com.intelliapps.digitalsutor.models.TipoAliq;
 import br.com.intelliapps.digitalsutor.models.Usuario;
 import br.com.intelliapps.digitalsutor.services.EmpresaService;
 import br.com.intelliapps.digitalsutor.services.UsuarioLogadoService;
+import br.com.intelliapps.digitalsutor.services.UsuarioService;
 import br.com.intelliapps.digitalsutor.validation.EmpresaValidation;
 
 @Controller
@@ -34,6 +37,9 @@ public class EmpresaController {
 	
 	@Autowired
 	private EmpresaService empresaService;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@Autowired
 	private Locale locale;
@@ -83,6 +89,14 @@ public class EmpresaController {
 			return empresaForm(empresa, model);
 		}
 		
+		List<Usuario> usuariosCopia = new ArrayList<Usuario>();
+		empresa.getUsuarios().stream()
+			.filter(user -> Objects.nonNull(user.getUsername()))
+			.forEach(user -> usuariosCopia.add(usuarioService.findByUsername(user.getUsername())));
+		
+		empresa.getUsuarios().clear();
+		empresa.setUsuarios(usuariosCopia);
+		
 		empresaService.save(empresa);
 		rAttr.addFlashAttribute("registrationMessage", messageSource.getMessage("message.empresa.create.success", new String[] {}, locale));
 
@@ -90,7 +104,13 @@ public class EmpresaController {
 	}
 	
 	@RequestMapping(value="/minhasempresas", method=RequestMethod.GET)
-	public String listaEmpresas() {
+	public String listaEmpresas(Model model) {
+		
+		Usuario usuario = usuarioLogadoService.usuarioLogado();
+		List<Empresa> empresas = empresaService.findByUsername(usuario.getUsername());
+		
+		model.addAttribute("empresas", empresas);
+		
 		return "listaempresas";
 	}
 	

@@ -1,6 +1,7 @@
 package br.com.intelliapps.digitalsutor.services;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +20,9 @@ public class EmpresaServiceImpl implements EmpresaService{
 	public void save(Empresa empresa) {
 		
 		for(Aliquota aliq : empresa.getAliquotas()) {
-			
 			if(!Objects.nonNull(aliq.getAliquota())) {
 				aliq.setAliquota(BigDecimal.ZERO);
-//				empresa.getAliquotas().remove(aliq);
-//				continue;
 			}
-			
-//			if(aliq.getAliquota().equals(BigDecimal.ZERO))
-//				empresa.getAliquotas().remove(aliq);
 		}
 		
 		empresaRepository.save(empresa);
@@ -39,6 +34,11 @@ public class EmpresaServiceImpl implements EmpresaService{
 
 	public boolean existsByCNPJ(String cnpj) {
 		return empresaRepository.existsByCNPJ(cnpj);
+	}
+
+	@Override
+	public List<Empresa> findByUsername(String username) {
+		return empresaRepository.findByUsername(username);
 	}
 	
 

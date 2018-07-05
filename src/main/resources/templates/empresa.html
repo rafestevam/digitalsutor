@@ -112,7 +112,10 @@
 														<tbody>
 															<tr role="row" class="odd" th:each="usuario, status : ${empresa.usuarios}">
 																<td><input type="checkbox" id="checkUsuario">
-																<td class="sorting_1" th:text="${usuario.nome} + ' ' + ${usuario.ultimonome}"></td>
+																<td class="sorting_1">
+																	<span th:text="${usuario.nome} + ' ' + ${usuario.ultimonome}"></span>
+																	<input type="hidden" th:attr="name='usuarios[__${status.index}__].username'" th:value="${usuario.username}">
+																</td>
 																<td th:text="${usuario.email}"></td>
 															</tr>
 														</tbody>
