@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-<link href="fontawesome/css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
-<link href="datatables/dataTables.bootstrap4.css" rel="stylesheet" />
-<link href="custom/css/sb-admin.css" rel="stylesheet" />
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="jquery/jquery-3.3.1.min.js"></script>
+<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+
+<link th:href="@{/fontawesome/css/fontawesome-all.min.css}" rel="stylesheet" type="text/css">
+<link th:href="@{/datatables/dataTables.bootstrap4.css}" rel="stylesheet" />
+<link th:href="@{/custom/css/sb-admin.css}" rel="stylesheet" />
+<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/jquery/jquery-3.3.1.min.js}"></script>
 </head>
 <body>
 
@@ -147,23 +147,23 @@
 	</div>
 	
 	<!-- Bootstrap core JavaScript-->
-	<script src="jquery/jquery.min.js"></script>
-	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script th:src="@{/jquery/jquery.min.js}"></script>
+	<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	
 	<!-- Core plugin JavaScript-->
-	<script src="jquery-easing/jquery.easing.min.js"></script>
+	<script th:src="@{/jquery-easing/jquery.easing.min.js}"></script>
 	
 	<!-- Page level plugin JavaScript-->
-	<script src="chart.js/Chart.min.js"></script>
-	<script src="datatables/jquery.dataTables.js"></script>
-	<script src="datatables/dataTables.bootstrap4.js"></script>
+	<script th:src="@{/chart.js/Chart.min.js}"></script>
+	<script th:src="@{/datatables/jquery.dataTables.js}"></script>
+	<script th:src="@{/datatables/dataTables.bootstrap4.js}"></script>
 	
 	<!-- Custom scripts for all pages-->
-	<script src="custom/js/sb-admin.min.js"></script>
+	<script th:src="@{/custom/js/sb-admin.min.js}"></script>
 	
 	<!-- Custom scripts for this page-->
-	<script src="custom/js/sb-admin-datatables.min.js"></script>
-	<script src="custom/js/sb-admin-charts.min.js"></script>
+	<script th:src="@{/custom/js/sb-admin-datatables.min.js}"></script>
+	<script th:src="@{/custom/js/sb-admin-charts.min.js}"></script>
 
 </body>
 </html>

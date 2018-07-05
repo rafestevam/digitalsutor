@@ -50,8 +50,16 @@
 											<td th:text="${empresa.nome}"></td>
 											<td th:text="${empresa.cnpj}"></td>
 											<td>Sim</td>
-											<td><i class="fas fa-pencil-alt"></i></td>
-											<td><i class="fas fa-trash-alt"></i></td>
+											<td>
+												<a th:href="@{/alterar/{id}(id=${empresa.id})}">
+													<i class="fas fa-pencil-alt"></i>
+												</a>
+											</td>
+											<td>
+												<a th:href="@{/delete/{id}(id=${empresa.id})}">
+													<i class="fas fa-trash-alt"></i>
+												</a>
+											</td>
 										</tr>
 									</tbody>
 								</table>

@@ -3,6 +3,7 @@ package br.com.intelliapps.digitalsutor.services;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,16 @@ public class EmpresaServiceImpl implements EmpresaService{
 	@Override
 	public List<Empresa> findByUsername(String username) {
 		return empresaRepository.findByUsername(username);
+	}
+	
+	@Override
+	public void delete(Long id) {
+		empresaRepository.deleteById(id);
+	}
+
+	@Override
+	public Optional<Empresa> findById(Long id) {
+		return empresaRepository.findById(id);
 	}
 	
 
