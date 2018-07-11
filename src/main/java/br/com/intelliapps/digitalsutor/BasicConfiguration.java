@@ -2,14 +2,17 @@ package br.com.intelliapps.digitalsutor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 
 import br.com.intelliapps.digitalsutor.conf.SecurityConfiguration;
 import br.com.intelliapps.digitalsutor.controllers.HomeController;
+import br.com.intelliapps.digitalsutor.properties.FileStorageProperties;
 import br.com.intelliapps.digitalsutor.repositories.UsuarioRepository;
 import br.com.intelliapps.digitalsutor.services.UsuarioService;
 
 @SpringBootApplication(scanBasePackageClasses= {HomeController.class, SecurityConfiguration.class, UsuarioRepository.class, UsuarioService.class})
+@EnableConfigurationProperties({FileStorageProperties.class})
 @EnableCaching
 public class BasicConfiguration {
 

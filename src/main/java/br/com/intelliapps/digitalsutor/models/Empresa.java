@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -35,6 +36,9 @@ public class Empresa {
 	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name="empresa_usuarios", joinColumns=@JoinColumn(name="empresa_id"), inverseJoinColumns=@JoinColumn(name="usuario_id"))
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
+	
+	@OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval=true)
+	private List<Produto> produtos = new ArrayList<Produto>();
 
 	public Long getId() {
 		return id;
@@ -82,6 +86,14 @@ public class Empresa {
 
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 	@Override
